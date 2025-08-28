@@ -1,13 +1,27 @@
-
-def print_color_map():
-    major_colors = ["White", "Red", "Black", "Yellow", "Violet"]
-    minor_colors = ["Blue", "Orange", "Green", "Brown", "Slate"]
-    for i, major in enumerate(major_colors):
-        for j, minor in enumerate(minor_colors):
-            print(f'{i * 5 + j} | {major} | {minor}')
-    return len(major_colors) * len(minor_colors)
+def get_color_code(row_index, col_index):
+    return row_index * 5 + col_index + 1
 
 
-result = print_color_map()
-assert(result == 25)
-print("All is well (maybe!)")
+def longest_item_length(values):
+    return max(len(str(x)) for x in values)
+
+
+def display_color_table():
+    primary_colors = ["White", "Red", "Black", "Yellow", "Violet"]
+    secondary_colors = ["Blue", "Orange", "Green", "Brown", "Slate"]
+
+    max_primary_len = longest_item_length(primary_colors)
+    max_secondary_len = longest_item_length(secondary_colors)
+
+    top_line = "| -- | " + "-" * max_primary_len + " | " + "-" * max_secondary_len + " |"
+    print(top_line)
+
+    total_entries = 0
+    for r, prim in enumerate(primary_colors):
+        for c, sec in enumerate(secondary_colors):
+            total_entries += 1
+            code = get_color_code(r, c)
+            print(f"| {code:<2} | {prim:<{max_primary_len}} | {sec:<{max_secondary_len}} |")
+        print(top_line)
+
+    return total_entries
